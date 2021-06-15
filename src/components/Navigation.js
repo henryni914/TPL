@@ -22,8 +22,12 @@ export default function WithSubnavigation() {
 
     const NAV_ITEMS = [
         {
-            label: 'Dashboard',
+            label: 'Home',
             href: '/'
+        },
+        {
+            label: 'Dashboard',
+            href: '/dashboard'
             // children: [
             //     {
             //         label: 'Placeholder',
@@ -32,10 +36,7 @@ export default function WithSubnavigation() {
             //     }
             // ],
         },
-        {
-            label: 'Profile',
-            href: '#'
-        },
+
         {
             label: 'About',
             href: '/about',
@@ -55,7 +56,7 @@ export default function WithSubnavigation() {
                             color='gray.600'
                             _hover={{
                                 textDecoration: 'none',
-                                color:'gray.800',
+                                color: 'gray.800',
                             }}>
                             {navItem.label}
                         </Link>
@@ -99,7 +100,7 @@ export default function WithSubnavigation() {
                 </Flex>
             </Stack>
         );
-    };  
+    };
 
     return (
         <Box>
@@ -132,7 +133,7 @@ export default function WithSubnavigation() {
                         fontFamily={'heading'}
                         color={useColorModeValue('gray.800', 'white')}>
                         Logo
-            </Text>
+                    </Text>
 
                     <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
                         <DesktopNav />
