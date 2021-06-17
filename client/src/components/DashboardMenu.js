@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import DashOverview from '../components/DashOverview';
 import NewTrade from '../components/NewTrade';
+import MobileDashTabs from '../components/MobileDashTabs';
 import {
     Grid,
     GridItem,
@@ -45,8 +46,8 @@ export default function DashboardMenu() {
         return (
             <>
                 <GridItem colSpan={1}
-                // bg='grey'
-                align={'left'}
+                    // bg='grey'
+                    align={'left'}
                 >
                     <Stack direction={'column'} spacing={4}>
                         {
@@ -93,7 +94,7 @@ export default function DashboardMenu() {
             </Grid>
 
             <Grid display={{ base: 'flex', md: 'none' }}>
-                <h1>Mobile</h1>
+                <MobileDashTabs tabs={dashboardTabs} />
             </Grid>
         </Box>
 
