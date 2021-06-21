@@ -4,6 +4,7 @@ import Nav from './components/Navigation';
 import Landing from './pages/Landing';
 import About from './pages/About';
 import Dashboard from './pages/Dashboard';
+import SignupForm from './components/SignupForm';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route exact path="/" component={Landing} />
         <Route exact path="/about" component={About} />
         <Route exact path="/dashboard" component={Dashboard} />
+        <Route exact path="/signup" component={SignupForm} />
       </div>
     </Router>
   );

@@ -16,6 +16,7 @@ import {
     HamburgerIcon,
     CloseIcon,
 } from '@chakra-ui/icons';
+import SignupForm from './SignupForm';
 
 export default function WithSubnavigation() {
     const { isOpen, onToggle } = useDisclosure();
@@ -153,18 +154,20 @@ export default function WithSubnavigation() {
                         href={'#'}>
                         Sign In
                     </Button>
-                    <Button
-                        display={{ base: 'none', md: 'inline-flex' }}
-                        fontSize={'sm'}
-                        fontWeight={600}
-                        color={'white'}
-                        bg={'blue.400'}
-                        href={'#'}
-                        _hover={{
-                            bg: 'blue.300',
-                        }}>
-                        Sign Up
-                    </Button>
+                    <Link to='/signup'>
+                        <Button
+                            display={{ base: 'none', md: 'inline-flex' }}
+                            fontSize={'sm'}
+                            fontWeight={600}
+                            color={'white'}
+                            bg={'blue.400'}
+                            // href={'/signup'}
+                            _hover={{
+                                bg: 'blue.300',
+                            }}>
+                            Sign Up
+                        </Button>
+                    </Link>
                 </Stack>
             </Flex>
 
