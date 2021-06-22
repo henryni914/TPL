@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import {
     FormControl,
     FormLabel,
-    // FormErrorMessage,
+    FormErrorMessage,
     FormHelperText,
     Input,
     Container,
@@ -10,10 +10,9 @@ import {
     Button,
 } from "@chakra-ui/react"
 
-export default function SignupForm() {
+export default function LoginForm() {
 
     let username = useRef(null);
-    let email = useRef(null);
     let password = useRef(null);
     const [submitting, setSubmitting] = useState(false)
 
@@ -24,23 +23,20 @@ export default function SignupForm() {
             setSubmitting(false)
         }, 1000)
         console.log(username.current.value)
-        console.log(email.current.value)
         console.log(password.current.value)
     }
 
     return (
         <Container py={{ base: 4 }}>
-            <Heading as="h4" size="md">Sign Up</Heading>
+            <Heading as="h4" size="md">Login</Heading>
             <FormControl py={{ base: 4 }} isRequired >
-                <FormLabel>Email address</FormLabel>
-                <Input type="email" id="email" ref={email} placeholder="example@domain.com" />
-                <FormHelperText>We'll never share your email.</FormHelperText>
                 <FormLabel>Username</FormLabel>
                 <Input type="username" id="username" ref={username} />
-                <FormHelperText>Please enter a username.</FormHelperText>
+                <FormHelperText>Please enter your username.</FormHelperText>
                 <FormLabel>Password</FormLabel>
                 <Input type="password" id="password" ref={password} />
-                <FormHelperText>Please enter a password.</FormHelperText>
+                <FormHelperText>Please enter your password.</FormHelperText>
+                <FormErrorMessage></FormErrorMessage>
                 <Button
                     mt={4}
                     colorScheme="teal"

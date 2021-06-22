@@ -5,6 +5,7 @@ import Landing from './pages/Landing';
 import About from './pages/About';
 import Dashboard from './pages/Dashboard';
 import SignupForm from './components/SignupForm';
+import LoginForm from './components/LoginForm';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route exact path="/about" component={About} />
         <Route exact path="/dashboard" component={Dashboard} />
         <Route exact path="/signup" component={SignupForm} />
+        <Route exact path="/login" component={LoginForm} />
       </div>
     </Router>
   );
