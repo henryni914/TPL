@@ -8,6 +8,7 @@ import {
     Stack,
     Box,
     Link,
+    // Button,
     // useColorModeValue,
 } from "@chakra-ui/react";
 
@@ -47,7 +48,7 @@ export default function DashboardMenu() {
             <>
                 <GridItem colSpan={1}
                     // bg='grey'
-                    align={'left'}
+                    align={'center'}
                 >
                     <Stack direction={'column'} spacing={4}>
                         {
@@ -60,6 +61,13 @@ export default function DashboardMenu() {
                                     >
                                         {tab}
                                     </Link>
+                                    {/* <Button
+                                        fontSize={'md'}
+                                        width='100%'
+                                        onClick={() => handleTabChange(tab)}
+                                    >
+                                        {tab}
+                                    </Button> */}
                                 </Box>
                             ))
                         }
@@ -83,11 +91,11 @@ export default function DashboardMenu() {
                 templateColumns="repeat(5, 1fr)"
                 gap={4}
                 display={{ base: 'none', md: 'grid' }}
-                bg='blue'
+            // bg='blue'
             >
                 <DesktopDash />
                 <GridItem colSpan={4}
-                    bg="tomato"
+                // bg="tomato"
                 >
                     {renderComponent(tab)}
                 </GridItem>
