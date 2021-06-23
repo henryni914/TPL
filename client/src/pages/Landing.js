@@ -5,7 +5,7 @@ export default function Landing() {
 
     function testDB() {
         API.test().then(res => {
-            console.log(res.data.rows[0])
+            console.log(res.data)
         })
     };
 
