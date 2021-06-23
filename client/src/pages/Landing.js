@@ -1,6 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import API from '../utils/API';
 
 export default function Landing() {
+
+    function testDB() {
+        API.test().then(res => {
+            console.log(res.data.rows[0])
+        })
+    };
+
+    useEffect(() => {
+        testDB();
+    }, []);
 
     return (
         <div>
