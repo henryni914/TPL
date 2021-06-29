@@ -10,7 +10,7 @@ export default function Landing() {
     };
 
     useEffect(() => {
-        testDB();
+        // testDB();
     }, []);
 
     return (

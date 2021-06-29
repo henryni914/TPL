@@ -7,4 +7,8 @@ router
   .route("/")
   .get(userController.test);
 
+  router
+  .route("/create")
+  .post(userController.createUser);
+
 module.exports = router;
