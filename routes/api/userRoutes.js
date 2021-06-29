@@ -5,7 +5,7 @@ const userController = require("../../controllers/userController")
 // Matches with "/api/user"
 router
   .route("/")
-  .get(userController.test);
+  .post(userController.findUser)
 
   router
   .route("/create")

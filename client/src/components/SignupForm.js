@@ -36,9 +36,6 @@ export default function SignupForm() {
         if (emailTest) {
             console.log('valid email')
             // first search db if any user returns from the email or username
-            // API.findUser(userInfo).then(res => {
-            //     console.log(res)
-            // })
             // if no results, create user
             // if results, return error that username or email exists
 
@@ -52,6 +49,7 @@ export default function SignupForm() {
                     }
 
                 } else {
+                    // setUser in Redux
                     // redirect if no error to dashboard
                 }
                 setSubmitting(false)
