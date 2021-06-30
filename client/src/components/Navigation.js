@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import {
     Box,
     Flex,
@@ -18,7 +19,11 @@ import {
 } from '@chakra-ui/icons';
 
 export default function WithSubnavigation() {
+
     const { isOpen, onToggle } = useDisclosure();
+    const dispatch = useDispatch();
+    const stateUser = useSelector(state => state.user)
+    console.log(stateUser)
 
     const NAV_ITEMS = [
         {
