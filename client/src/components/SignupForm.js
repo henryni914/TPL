@@ -8,6 +8,7 @@ import {
     Heading,
     Button,
 } from "@chakra-ui/react"
+import { useHistory } from 'react-router';
 import API from '../utils/API';
 
 export default function SignupForm() {
@@ -15,8 +16,9 @@ export default function SignupForm() {
     let usernameRef = useRef(null);
     let emailRef = useRef(null);
     let passwordRef = useRef(null);
-    const [submitting, setSubmitting] = useState(false)
-    const [formError, setFormError] = useState('')
+    const [submitting, setSubmitting] = useState(false);
+    const [formError, setFormError] = useState('');
+    let history = useHistory();
 
 
     function handleSubmit() {
@@ -51,6 +53,7 @@ export default function SignupForm() {
                 } else {
                     // setUser in Redux
                     // redirect if no error to dashboard
+                    history.push('/dashboard')
                 }
                 setSubmitting(false)
             })

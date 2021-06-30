@@ -9,6 +9,7 @@ import {
     Heading,
     Button,
 } from "@chakra-ui/react"
+import { useHistory } from 'react-router-dom'
 import API from '../utils/API';
 
 export default function LoginForm() {
@@ -17,10 +18,11 @@ export default function LoginForm() {
     let passwordRef = useRef(null);
     const [submitting, setSubmitting] = useState(false);
     const [loginError, setLoginError] = useState('');
+    let history = useHistory();
 
 
     function handleSubmit() {
-        // setSubmitting(true)
+        setSubmitting(true)
         // setTimeout(() => {
         //     setSubmitting(false)
         // }, 1000)
@@ -30,12 +32,14 @@ export default function LoginForm() {
         }
         API.findUser(userInfo).then(res => {
             console.log(res)
-            if(res.data.length === 0){
+            if (res.data.length === 0) {
                 setLoginError('Invalid username or password')
             } else {
                 // setUser in Redux state
                 // redirect to dashboard
+                history.push('/dashboard')
             }
+            setSubmitting(false)
         })
     }
 
