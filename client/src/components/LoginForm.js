@@ -34,7 +34,7 @@ export default function LoginForm() {
             password: passwordRef.current.value
         }
         API.findUser(userInfo).then(res => {
-            console.log(res)
+            // console.log(res)
             if (res.data === false) {
                 setLoginError('Invalid username');
             } else if (res.data === 'invalid password') {

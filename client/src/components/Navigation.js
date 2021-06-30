@@ -25,6 +25,7 @@ export default function WithSubnavigation() {
     const dispatch = useDispatch();
     const stateUser = useSelector(state => state.user)
     const [auth, setAuth] = useState(false)
+    console.log(stateUser)
 
     function handleLogout() {
         setAuth(!auth)
