@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import {
     FormControl,
     FormLabel,
-    FormErrorMessage,
+    // FormErrorMessage,
     FormHelperText,
     Input,
     Container,
@@ -12,7 +12,7 @@ import {
 import { useHistory } from 'react-router-dom'
 import API from '../utils/API';
 import { setUser, setUserLogin } from '../actions/user';
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch} from "react-redux";
 
 export default function LoginForm() {
 
@@ -41,7 +41,8 @@ export default function LoginForm() {
                 setLoginError('Invalid password')
             } else {
                 // setUser in Redux state
-                dispatch(setUser(res.data), setUserLogin());
+                dispatch(setUser(res.data));
+                dispatch(setUserLogin());
                 // redirect to dashboard
                 history.push('/dashboard');
             }

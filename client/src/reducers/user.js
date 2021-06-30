@@ -24,6 +24,10 @@ export default function userReducer(state = {
         case 'SET_USER_LOGOUT':
             return {
                 ...state,
+                id: action.payload.id,
+                email: action.payload.email,
+                username: action.payload.username,
+                dateJoined: action.payload.dateJoined,
                 authenticated: action.payload.auth
             }
         default:

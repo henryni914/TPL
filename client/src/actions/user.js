@@ -18,6 +18,10 @@ export const setUserLogin = () => ({
 export const setUserLogout = () => ({
     type: 'SET_USER_LOGOUT',
     payload: {
+        id: "",
+        email: "",
+        username: "",
+        dateJoined: "",
         auth: false
     }
 })

@@ -11,7 +11,7 @@ import {
 import { useHistory } from 'react-router';
 import API from '../utils/API';
 import { setUser, setUserLogin } from '../actions/user';
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch} from "react-redux";
 
 export default function SignupForm() {
 
@@ -48,7 +48,7 @@ export default function SignupForm() {
             API.createUser(userInfo).then(res => {
                 console.log(res)
                 if (res.data.constraint) {
-                    if (res.data.constraint == "users_username_key") {
+                    if (res.data.constraint === "users_username_key") {
                         setFormError('Username already exists')
                     } else {
                         setFormError('Email already exists')
@@ -56,7 +56,8 @@ export default function SignupForm() {
 
                 } else {
                     // setUser in Redux
-                    dispatch(setUser(res.data), setUserLogin());
+                    dispatch(setUser(res.data));
+                    dispatch(setUserLogin());
                     // redirect if no error to dashboard
                     history.push('/dashboard')
                 }

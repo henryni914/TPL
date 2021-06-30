@@ -25,14 +25,16 @@ export default function WithSubnavigation() {
     const dispatch = useDispatch();
     const stateUser = useSelector(state => state.user)
     const [auth, setAuth] = useState(false)
-    console.log(stateUser)
+    // console.log(stateUser)
 
     function handleLogout() {
         setAuth(!auth)
+        dispatch(setUserLogout())
     }
 
     useEffect(() => {
         console.log('redux state changed')
+        console.log(stateUser)
         setAuth(stateUser.authenticated)
     }, [stateUser])
 

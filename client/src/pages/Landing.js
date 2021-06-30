@@ -3,11 +3,11 @@ import API from '../utils/API';
 
 export default function Landing() {
 
-    function testDB() {
-        API.test().then(res => {
-            console.log(res.data)
-        })
-    };
+    // function testDB() {
+    //     API.test().then(res => {
+    //         console.log(res.data)
+    //     })
+    // };
 
     useEffect(() => {
         // testDB();
