@@ -11,15 +11,18 @@ import {
 } from "@chakra-ui/react"
 import { useHistory } from 'react-router-dom'
 import API from '../utils/API';
+import { setUserLogin } from '../actions/user';
+import { useDispatch, useSelector } from "react-redux";
 
 export default function LoginForm() {
 
     let usernameRef = useRef(null);
     let passwordRef = useRef(null);
-    const [submitting, setSubmitting] = useState(false);
-    const [loginError, setLoginError] = useState('');
     let history = useHistory();
 
+    const [submitting, setSubmitting] = useState(false);
+    const [loginError, setLoginError] = useState('');
+    const dispatch = useDispatch();
 
     function handleSubmit() {
         setSubmitting(true)
@@ -32,12 +35,15 @@ export default function LoginForm() {
         }
         API.findUser(userInfo).then(res => {
             console.log(res)
-            if (res.data.length === 0) {
-                setLoginError('Invalid username or password')
+            if (res.data === false) {
+                setLoginError('Invalid username');
+            } else if (res.data === 'invalid password') {
+                setLoginError('Invalid password')
             } else {
                 // setUser in Redux state
+                dispatch(setUserLogin());
                 // redirect to dashboard
-                history.push('/dashboard')
+                history.push('/dashboard');
             }
             setSubmitting(false)
         })

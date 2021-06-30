@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { setUserLogout } from '../actions/user';
 import {
     Box,
     Flex,
@@ -23,7 +24,9 @@ export default function WithSubnavigation() {
     const { isOpen, onToggle } = useDisclosure();
     const dispatch = useDispatch();
     const stateUser = useSelector(state => state.user)
-    console.log(stateUser)
+    const [auth, setAuth] = useState(false)
+    // const auth = stateUser.authenticated
+    // console.log(stateUser.authenticated)
 
     const NAV_ITEMS = [
         {
@@ -145,35 +148,54 @@ export default function WithSubnavigation() {
                     </Flex>
                 </Flex>
 
-                <Stack
-                    flex={{ base: 1, md: 0 }}
-                    justify={'flex-end'}
-                    direction={'row'}
-                    spacing={6}>
-                    <Link to='/login'>
-                        <Button
-                            as={'a'}
-                            fontSize={'sm'}
-                            fontWeight={400}
-                        >
-                            Login
-                        </Button>
-                    </Link>
-                    <Link to='/signup'>
-                        <Button
-                            display={{ base: 'none', md: 'inline-flex' }}
-                            fontSize={'sm'}
-                            fontWeight={600}
-                            color={'white'}
-                            bg={'blue.400'}
-                            // href={'/signup'}
-                            _hover={{
-                                bg: 'blue.300',
-                            }}>
-                            Sign Up
-                        </Button>
-                    </Link>
-                </Stack>
+                {auth ?
+                    (<Stack
+                        flex={{ base: 1, md: 0 }}
+                        justify={'flex-end'}
+                        direction={'row'}
+                        spacing={6}>
+                        <Link to='/'>
+                            <Button
+                                as={'a'}
+                                fontSize={'sm'}
+                                fontWeight={400}
+                                // onClick={() => handleLogout()}
+                            >
+                                Logout
+                            </Button>
+                        </Link>
+                    </Stack>)
+                    : (<Stack
+                        flex={{ base: 1, md: 0 }}
+                        justify={'flex-end'}
+                        direction={'row'}
+                        spacing={6}>
+                        <Link to='/login'>
+                            <Button
+                                as={'a'}
+                                fontSize={'sm'}
+                                fontWeight={400}
+                            >
+                                Login
+                            </Button>
+                        </Link>
+                        <Link to='/signup'>
+                            <Button
+                                display={{ base: 'none', md: 'inline-flex' }}
+                                fontSize={'sm'}
+                                fontWeight={600}
+                                color={'white'}
+                                bg={'blue.400'}
+                                // href={'/signup'}
+                                _hover={{
+                                    bg: 'blue.300',
+                                }}>
+                                Sign Up
+                            </Button>
+                        </Link>
+                    </Stack>)
+                }
+
             </Flex>
 
             <Collapse in={isOpen} animateOpacity>
