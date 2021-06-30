@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/react"
 import { useHistory } from 'react-router-dom'
 import API from '../utils/API';
-import { setUserLogin } from '../actions/user';
+import { setUser, setUserLogin } from '../actions/user';
 import { useDispatch, useSelector } from "react-redux";
 
 export default function LoginForm() {
@@ -41,7 +41,7 @@ export default function LoginForm() {
                 setLoginError('Invalid password')
             } else {
                 // setUser in Redux state
-                dispatch(setUserLogin());
+                dispatch(setUser(res.data), setUserLogin());
                 // redirect to dashboard
                 history.push('/dashboard');
             }

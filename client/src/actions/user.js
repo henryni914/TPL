@@ -1,10 +1,10 @@
 export const setUser = (user) => ({
     type: 'SET_USER',
     payload: {
-        id: user.id,
+        id: user.uid,
         email: user.email,
-        username: user.name,
-        dateJoined: user.dateJoined,
+        username: user.username,
+        dateJoined: user.date_created,
     }
 });
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setUserLogout } from '../actions/user';
@@ -25,8 +25,15 @@ export default function WithSubnavigation() {
     const dispatch = useDispatch();
     const stateUser = useSelector(state => state.user)
     const [auth, setAuth] = useState(false)
-    // const auth = stateUser.authenticated
-    // console.log(stateUser.authenticated)
+
+    function handleLogout() {
+        setAuth(!auth)
+    }
+
+    useEffect(() => {
+        console.log('redux state changed')
+        setAuth(stateUser.authenticated)
+    }, [stateUser])
 
     const NAV_ITEMS = [
         {
@@ -159,7 +166,7 @@ export default function WithSubnavigation() {
                                 as={'a'}
                                 fontSize={'sm'}
                                 fontWeight={400}
-                                // onClick={() => handleLogout()}
+                                onClick={() => handleLogout()}
                             >
                                 Logout
                             </Button>
