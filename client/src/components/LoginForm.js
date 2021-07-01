@@ -8,6 +8,9 @@ import {
     Container,
     Heading,
     Button,
+    Alert,
+    AlertIcon,
+    AlertDescription,
 } from "@chakra-ui/react"
 import { useHistory } from 'react-router-dom'
 import API from '../utils/API';
@@ -21,7 +24,7 @@ export default function LoginForm() {
     let history = useHistory();
 
     const [submitting, setSubmitting] = useState(false);
-    const [loginError, setLoginError] = useState('');
+    const [loginError, setLoginError] = useState(null);
     const dispatch = useDispatch();
 
     function handleSubmit() {
@@ -60,7 +63,14 @@ export default function LoginForm() {
                 <FormLabel>Password</FormLabel>
                 <Input type="password" id="password" ref={passwordRef} />
                 <FormHelperText>Please enter your password.</FormHelperText>
-                <p>{loginError}</p>
+                {loginError ? (
+                    <Alert status="error" py={4} mt={4}>
+                        <AlertIcon />
+                        <AlertDescription>{loginError}</AlertDescription>
+                    </Alert>
+                ) : (
+                    <></>
+                )}
                 <Button
                     mt={4}
                     colorScheme="teal"

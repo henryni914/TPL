@@ -16,15 +16,21 @@ import {
     Stat,
     StatLabel,
     StatNumber,
+    Alert,
+    AlertIcon,
+    AlertDescription,
 } from '@chakra-ui/react';
 
 export default function NewTrade() {
 
     const [price, setPrice] = useState("0.00");
     const [cost, setCost] = useState("0.00");
+    const [tradeType, setTradeType] = useState('stock');
     const [quantity, setQuantity] = useState(0);
+    const [error, setError] = useState(null);
+    const [submitting, setSubmitting] = useState(false);
+
     let tickerRef = useRef(null)
-    let tradeTypeRef = useRef(null);
 
     const format = (val) => `$` + val;
     const parse = (val) => val.replace(/^\$/, "");
@@ -40,15 +46,45 @@ export default function NewTrade() {
         setQuantity(val)
         setCost((val * price).toFixed(2))
     }
+
+    const formValidation = (tradeObj) => {
+        if (!tradeObj.ticker) {
+            setError('Please enter a ticker')
+        } else if (!tradeObj.type) {
+            setError('Please select a trade type')
+        } else if (JSON.parse(tradeObj.quantity) === 0) {
+            if (tradeObj.type === 'stock') {
+                setError('Please enter the number of shares')
+            } else {
+                setError('Please enter the number of contracts')
+            }
+        } else if (JSON.parse(tradeObj.price) === 0) {
+            if (tradeObj.type === 'stock') {
+                setError('Please enter the price per share')
+            } else {
+                setError('Please enter the price per contract')
+            }
+        } else {
+            setError(null)
+        }
+    }
+
     function handleSubmit() {
+        setSubmitting(true)
         let tradeObj = {
-            type: tradeTypeRef.current.value,
             ticker: tickerRef.current.value,
+            type: tradeType,
             quantity: quantity,
             price: price,
             total: cost
         }
         console.log(tradeObj)
+        formValidation(tradeObj)
+        if (!error){
+            // insert API call to post to DB
+            console.log('form validated')
+            setSubmitting(false)
+        }
     };
 
     return (
@@ -60,11 +96,13 @@ export default function NewTrade() {
                     <Input id="ticker" placeholder="TSLA" ref={tickerRef} />
                     {/* <FormHelperText>Placeholder</FormHelperText> */}
                     <FormLabel>Type of Trade</FormLabel>
-                    <Select placeholder="Select option" ref={tradeTypeRef}>
+                    <Select placeholder="Select trade type" onChange={(val) => setTradeType(val.target.value) }>
                         <option value="stock">Stock</option>
                         <option value="option">Option</option>
                     </Select>
-                    <FormLabel>Number of shares</FormLabel>
+                    <FormLabel>Number of
+                        {(tradeType === 'stock') ? " shares" : " contracts"}
+                    </FormLabel>
                     <Stack></Stack>
                     <NumberInput
                         size="md"
@@ -79,7 +117,9 @@ export default function NewTrade() {
                             <NumberDecrementStepper />
                         </NumberInputStepper>
                     </NumberInput>
-                    <FormLabel>Cost per share</FormLabel>
+                    <FormLabel>Cost per
+                        {(tradeType === 'stock') ? " share" : " contract"}
+                    </FormLabel>
                     <NumberInput
                         id='price'
                         size="md"
@@ -95,12 +135,20 @@ export default function NewTrade() {
                         <StatLabel>Total Cost</StatLabel>
                         <StatNumber>${cost}</StatNumber>
                     </Stat>
+                    {error ? (
+                        <Alert status="error" py={4} mt={4}>
+                            <AlertIcon />
+                            <AlertDescription>{error}</AlertDescription>
+                        </Alert>
+                    ) : (
+                        <></>
+                    )}
                     <Button
                         mt={4}
                         colorScheme="teal"
                         type="submit"
                         onClick={() => handleSubmit()}
-                    // isLoading={submitting}
+                        isLoading={submitting}
                     >
                         Submit
                     </Button>
