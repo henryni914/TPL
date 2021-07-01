@@ -12,7 +12,7 @@ import {
 import { useHistory } from 'react-router-dom'
 import API from '../utils/API';
 import { setUser, setUserLogin } from '../actions/user';
-import { useDispatch} from "react-redux";
+import { useDispatch } from "react-redux";
 
 export default function LoginForm() {
 

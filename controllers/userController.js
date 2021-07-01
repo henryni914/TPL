@@ -11,20 +11,29 @@ module.exports = {
     createUser: function (req, res) {
         const hash = bcrypt.hashSync(req.body.password, salt);
         const values = [req.body.username, req.body.email, hash];
-        pool.query(`INSERT INTO users(username, email, password) VALUES($1,$2,$3)`, values,
+        pool.query(`INSERT INTO users(username, email, password) 
+        VALUES($1,$2,$3)
+        RETURNING uid, username, email, date_created`, values,
             (q_err, q_res) => {
                 if (q_err) return res.json(q_err)
-                res.json(q_res.rows)
+                res.json(q_res.rows[0]);
             }
         )
     },
     findUser: function (req, res) {
-        const hash = bcrypt.hashSync(req.body.password, salt);
-        const values = [req.body.username, hash];
-        pool.query(`SELECT * FROM users WHERE username = $1 AND password = $2`, values,
+        const values = [req.body.username];
+        pool.query(`SELECT * FROM users WHERE username = $1`, values,
             (q_err, q_res) => {
                 if (q_err) return res.json(q_err)
-                res.json(q_res.rows)
+                if (q_res.rows.length === 0) {
+                    return res.json(false);
+                } else {
+                    let match = bcrypt.compareSync(req.body.password, q_res.rows[0].password);
+                    if (match) {
+                        return res.json(q_res.rows[0]);
+                    }
+                    return res.json('invalid password');
+                }
             }
         )
     }

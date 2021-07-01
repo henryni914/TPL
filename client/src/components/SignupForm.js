@@ -7,11 +7,14 @@ import {
     Container,
     Heading,
     Button,
+    Alert,
+    AlertIcon,
+    AlertDescription
 } from "@chakra-ui/react"
 import { useHistory } from 'react-router';
 import API from '../utils/API';
 import { setUser, setUserLogin } from '../actions/user';
-import { useDispatch} from "react-redux";
+import { useDispatch } from "react-redux";
 
 export default function SignupForm() {
 
@@ -21,13 +24,26 @@ export default function SignupForm() {
     let history = useHistory();
     const dispatch = useDispatch();
     const [submitting, setSubmitting] = useState(false);
-    const [formError, setFormError] = useState('');
+    const [formError, setFormError] = useState(null);
 
 
 
     function handleSubmit() {
         setSubmitting(true)
         // check if all fields are valid
+        if (!usernameRef.current.value ){
+            setFormError('Username is required')
+            setSubmitting(false)
+            return;
+        } else if (!emailRef.current.value){
+            setFormError('Email is required')
+            setSubmitting(false)
+            return;
+        } else if (!passwordRef.current.value){
+            setFormError('Password is required')
+            setSubmitting(false)
+            return;
+        }
         // if all valid, search DB by username 
         // if something is found, alert user account already exists with either username or email
         // if nothing found
@@ -82,7 +98,16 @@ export default function SignupForm() {
                 <FormLabel>Password</FormLabel>
                 <Input type="password" id="password" ref={passwordRef} />
                 <FormHelperText>Please enter a password.</FormHelperText>
-                <div>{formError}</div>
+                {/* <div>{formError}</div> */}
+                {formError ? (
+                    <Alert status="error" py={4} mt={4}>
+                        <AlertIcon />
+                        <AlertDescription>{formError}</AlertDescription>
+                    </Alert>
+                ) : (
+                    <></>
+                )}
+
                 <Button
                     mt={4}
                     colorScheme="teal"
