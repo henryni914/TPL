@@ -1,4 +1,5 @@
 import React, { useRef, useState } from 'react';
+import { useSelector } from "react-redux";
 import {
     Button,
     Container,
@@ -20,6 +21,7 @@ import {
     AlertIcon,
     AlertDescription,
 } from '@chakra-ui/react';
+import API from '../utils/API';
 
 export default function NewTrade() {
 
@@ -29,6 +31,7 @@ export default function NewTrade() {
     const [quantity, setQuantity] = useState(0);
     const [error, setError] = useState(null);
     const [submitting, setSubmitting] = useState(false);
+    const stateUser = useSelector(state => state.user)
 
     let tickerRef = useRef(null)
 
@@ -48,6 +51,8 @@ export default function NewTrade() {
     }
 
     const formValidation = (tradeObj) => {
+        // console.log(stateUser.id)
+        tradeObj.uid = stateUser.id
         if (!tradeObj.ticker) {
             setError('Please enter a ticker')
         } else if (!tradeObj.type) {
@@ -66,6 +71,9 @@ export default function NewTrade() {
             }
         } else {
             setError(null)
+            API.createTrade(tradeObj).then(res => {
+                console.log(res);
+            })
         }
     }
 
@@ -80,10 +88,10 @@ export default function NewTrade() {
         }
         console.log(tradeObj)
         formValidation(tradeObj)
-        if (!error){
+        if (!error) {
             // insert API call to post to DB
-            console.log('form validated')
             setSubmitting(false)
+            console.log('form validated')
         }
     };
 
@@ -96,7 +104,7 @@ export default function NewTrade() {
                     <Input id="ticker" placeholder="TSLA" ref={tickerRef} />
                     {/* <FormHelperText>Placeholder</FormHelperText> */}
                     <FormLabel>Type of Trade</FormLabel>
-                    <Select placeholder="Select trade type" onChange={(val) => setTradeType(val.target.value) }>
+                    <Select placeholder="Select trade type" onChange={(val) => setTradeType(val.target.value)}>
                         <option value="stock">Stock</option>
                         <option value="option">Option</option>
                     </Select>

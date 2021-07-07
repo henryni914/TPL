@@ -7,8 +7,8 @@ router
   .route("/")
   .post(userController.findUser)
 
-  router
+router
   .route("/create")
-  .post(userController.createUser);
+  .post(userController.createUser)
 
 module.exports = router;
