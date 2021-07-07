@@ -13,14 +13,14 @@ CREATE TABLE openingTrades (
   --  NUMERIC(precision, scale)
   -- precision = # of digits before decimal
   -- scale = # of digits after decimal
-  price NUMERIC(20,2),
+  price NUMERIC(20,2) NOT NULL,
   quantity INT NOT NULL,
-  initial_cost NUMERIC(20,2) NOT NULL,
-  net_gain NUMERIC(20,2), 
-  open_date DATE,  
-  completed BOOLEAN,
+  cost NUMERIC(20,2) NOT NULL,
+  net NUMERIC(20,2), 
+  open_date DATE NOT NULL DEFAULT CURRENT_DATE,  
+  completed BOOLEAN DEFAULT FALSE,
   -- trade types [stock, option]
-  trade_type: VARCHAR NOT NULL 
+  type VARCHAR NOT NULL 
   
 --   title VARCHAR(255),
 --   body VARCHAR,
@@ -36,3 +36,18 @@ CREATE TABLE closingTrades (
   open_id INT REFERENCES openTrades(trade_id),
   trades jsonb
 )
+
+
+------------- Use below in pgAdmin
+-- CREATE TABLE trades (
+--   trade_id SERIAL PRIMARY KEY,
+--   user_id INT REFERENCES users(uid),
+--   ticker VARCHAR NOT NULL,
+--   price NUMERIC(20,2) NOT NULL,
+--   quantity INT NOT NULL,
+--   cost NUMERIC(20,2) NOT NULL,
+--   net NUMERIC(20,2), 
+--   open_date DATE NOT NULL DEFAULT CURRENT_DATE,  
+--   completed BOOLEAN DEFAULT FALSE,
+--   type VARCHAR NOT NULL 
+-- );

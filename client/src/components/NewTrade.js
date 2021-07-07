@@ -52,7 +52,7 @@ export default function NewTrade() {
 
     const formValidation = (tradeObj) => {
         // console.log(stateUser.id)
-        tradeObj.uid = stateUser.id
+        tradeObj.user_id = stateUser.id
         if (!tradeObj.ticker) {
             setError('Please enter a ticker')
         } else if (!tradeObj.type) {
