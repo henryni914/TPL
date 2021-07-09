@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { useSelector } from "react-redux";
+import Calendar from './Calendar';
 import {
     Button,
     Container,
@@ -7,6 +8,8 @@ import {
     FormLabel,
     FormHelperText,
     Input,
+    InputGroup,
+    InputRightElement,
     NumberInput,
     NumberInputField,
     NumberInputStepper,
@@ -32,11 +35,17 @@ export default function NewTrade() {
     const [error, setError] = useState(null);
     const [submitting, setSubmitting] = useState(false);
     const stateUser = useSelector(state => state.user)
+    const [date, setDate] = useState(new Date());
 
     let tickerRef = useRef(null)
 
     const format = (val) => `$` + val;
     const parse = (val) => val.replace(/^\$/, "");
+
+    const selectDate = (event) => {
+        // console.log(event)
+        setDate(event)
+    }
 
     const updatePriceAndCost = (val) => {
         // console.log(`val: ${val}`)
@@ -139,6 +148,18 @@ export default function NewTrade() {
                         value={format(price)}>
                         <NumberInputField />
                     </NumberInput>
+                    <FormLabel>Date</FormLabel>
+                    <InputGroup size="md">
+                        <Input
+                            // placeholder="Date"
+                            size="md"
+                            value={date}
+                        />
+                        <InputRightElement >
+                            <Calendar onChange={selectDate} date={date} />
+                        </InputRightElement>
+                    </InputGroup>
+
                     <Stat>
                         <StatLabel>Total Cost</StatLabel>
                         <StatNumber>${cost}</StatNumber>

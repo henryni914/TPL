@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Calendar from 'react-calendar';
 import {
+    IconButton,
     Button,
     Modal,
     ModalOverlay,
@@ -9,31 +10,38 @@ import {
     ModalFooter,
     ModalBody,
     ModalCloseButton,
-    useDisclosure
+    useDisclosure,
 } from "@chakra-ui/react"
+import { CalendarIcon } from "@chakra-ui/icons";
 
-export default function CalendarModal() {
-
+export default function CalendarModal(props) {
+    console.log(props)
     const { isOpen, onOpen, onClose } = useDisclosure()
     const [value, onChange] = useState(new Date());
 
 
-    console.log(value)
+    // console.log(value)
 
     return (
         <div>
-            <Button onClick={onOpen}>Open Modal</Button>
+            {/* <Button onClick={onOpen} >Date</Button> */}
+            <IconButton
+                colorScheme="blue"
+                aria-label="Search database"
+                icon={<CalendarIcon />}
+                onClick={onOpen}
+            />
 
             <Modal isOpen={isOpen} onClose={onClose}>
                 <ModalOverlay />
                 <ModalContent>
-                    <ModalHeader>Modal Title</ModalHeader>
+                    <ModalHeader>Date of Trade</ModalHeader>
                     <ModalCloseButton />
                     <ModalBody>
                         <Calendar
-                            activeStartDate={new Date()}
-                            onChange={onChange}
-                            value={value}
+                            // activeStartDate={new Date()}
+                            onChange={props.onChange}
+                            value={props.date}
                         />
                     </ModalBody>
 
@@ -41,10 +49,9 @@ export default function CalendarModal() {
                         <Button colorScheme="blue" mr={3} onClick={onClose}>
                             Close
                         </Button>
-                        <Button variant="ghost">Secondary Action</Button>
                     </ModalFooter>
                 </ModalContent>
             </Modal>
-        </div>
+        </div >
     );
 }
