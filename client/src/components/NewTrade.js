@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { useSelector } from "react-redux";
 import Calendar from './Calendar';
+import moment from 'moment';
 import {
     Button,
     Container,
@@ -41,6 +42,7 @@ export default function NewTrade() {
 
     const format = (val) => `$` + val;
     const parse = (val) => val.replace(/^\$/, "");
+    const formatDate = (val) => moment(val).format('LL');
 
     const selectDate = (event) => {
         // console.log(event)
@@ -62,7 +64,9 @@ export default function NewTrade() {
     const formValidation = (tradeObj) => {
         // console.log(stateUser.id)
         tradeObj.user_id = stateUser.id
-        if (!tradeObj.ticker) {
+        if (!tradeObj.user_id) {
+            setError('Please login')
+        } else if (!tradeObj.ticker) {
             setError('Please enter a ticker')
         } else if (!tradeObj.type) {
             setError('Please select a trade type')
@@ -88,12 +92,14 @@ export default function NewTrade() {
 
     function handleSubmit() {
         setSubmitting(true)
+
         let tradeObj = {
             ticker: tickerRef.current.value,
             type: tradeType,
             quantity: quantity,
             price: price,
-            total: cost
+            total: cost,
+            date: date
         }
         console.log(tradeObj)
         formValidation(tradeObj)
@@ -101,6 +107,9 @@ export default function NewTrade() {
             // insert API call to post to DB
             setSubmitting(false)
             console.log('form validated')
+        } else {
+            setSubmitting(false)
+            console.log('form failed')
         }
     };
 
@@ -153,7 +162,8 @@ export default function NewTrade() {
                         <Input
                             // placeholder="Date"
                             size="md"
-                            value={date}
+                            value={formatDate(date)}
+                            readOnly
                         />
                         <InputRightElement >
                             <Calendar onChange={selectDate} date={date} />
