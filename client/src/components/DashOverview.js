@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import Calendar from './Calendar';
 
 export default function DashOverview() {
 
@@ -7,6 +8,10 @@ export default function DashOverview() {
     console.log(stateUser);
 
     return (
-        <h1>Overview</h1>
+        <div>
+            <h1>Overview</h1>
+            <Calendar />
+        </div>
+
     )
 }
