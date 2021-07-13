@@ -9,5 +9,8 @@ export default {
     },
     createTrade: function (trade) {
         return axios.post(`/api/trade`, trade)
+    },
+    getUserTrades: function (id) {
+        return axios.get(`/api/trade/user/` + id)
     }
 }

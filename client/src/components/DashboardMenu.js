@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import DashOverview from '../components/DashOverview';
 import NewTrade from '../components/NewTrade';
+import UserHistory from './UserHistory';
 import MobileDashTabs from '../components/MobileDashTabs';
 import {
     Grid,
@@ -20,7 +21,7 @@ export default function DashboardMenu() {
     const dashboardTabs = [
         'Overview',
         'New Trade',
-        'Edit Trade',
+        'Trade History',
         'Statistics',
         '2',
         '3'
@@ -38,6 +39,9 @@ export default function DashboardMenu() {
             }
             case "New Trade": {
                 return <NewTrade />
+            }
+            case "Trade History": {
+                return <UserHistory />
             }
             default: return <DashOverview />
         };

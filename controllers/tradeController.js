@@ -11,5 +11,13 @@ module.exports = {
                 res.json(q_res.rows[0]);
             }
         )
+    },
+    getAllTrades: function (req, res) {
+        const value = [req.params.id];
+        pool.query(`SELECT * FROM trades WHERE user_id = $1`, value,
+            (q_err, q_res) => {
+                if (q_err) return res.json(q_err)
+                res.json(q_res.rows);
+            });
     }
 };
