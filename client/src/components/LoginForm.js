@@ -12,7 +12,7 @@ import {
     AlertIcon,
     AlertDescription,
 } from "@chakra-ui/react"
-import { useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom';
 import API from '../utils/API';
 import { setUser, setUserLogin } from '../actions/user';
 import { useDispatch } from "react-redux";

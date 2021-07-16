@@ -10,6 +10,7 @@ import {
     AccordionIcon,
     Box,
     Container,
+    IconButton,
     List,
     ListItem,
     ListIcon,
@@ -23,7 +24,7 @@ import {
     Td,
     TableCaption,
 } from "@chakra-ui/react"
-import { CheckCircleIcon } from "@chakra-ui/icons";
+import { CheckCircleIcon, EditIcon } from "@chakra-ui/icons";
 
 export default function UserHistory() {
 
@@ -65,11 +66,18 @@ export default function UserHistory() {
                                     <Td>{trade.ticker}</Td>
                                     <Td>{trade.type}</Td>
                                     <Td isNumeric>{trade.quantity}</Td>
-                                    <Td isNumeric>${trade.price}</Td>
-                                    <Td isNumeric>${trade.cost}</Td>
+                                    <Td isNumeric>{Number(trade.price).toLocaleString(undefined, { style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2 })}</Td>
+                                    <Td isNumeric>{Number(trade.cost).toLocaleString(undefined, { style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2 })}</Td>
                                     <Td isNumeric>{trade.net}</Td>
+                                    <Td>
+                                        <IconButton
+                                            aria-label="Edit Trade"
+                                            size="md"
+                                            icon={<EditIcon />}
+                                        />
+                                    </Td>
                                 </Tr>
-                                <Tr>
+                                {/* <Tr>
                                     <Accordion allowToggle>
                                         <AccordionItem>
                                             <h2>
@@ -94,21 +102,15 @@ export default function UserHistory() {
                                                         <Tr key={trade.id}>
                                                             <Td>{moment(trade.open_date).format('l')}</Td>
                                                             <Td isNumeric>{trade.quantity}</Td>
-                                                            <Td isNumeric>${trade.price}</Td>
-                                                            <Td isNumeric>${(trade.quantity * trade.price).toFixed(2)}</Td>
-                                                        </Tr>
-                                                        <Tr key={trade.id}>
-                                                            <Td>{moment(trade.open_date).format('l')}</Td>
-                                                            <Td isNumeric>{trade.quantity}</Td>
-                                                            <Td isNumeric>${trade.price}</Td>
-                                                            <Td isNumeric>${(trade.quantity * trade.price).toFixed(2)}</Td>
+                                                            <Td isNumeric>${trade.price.toLocaleString()}</Td>
+                                                            <Td isNumeric>${(trade.quantity * trade.price).toFixed(2).toLocaleString()}</Td>
                                                         </Tr>
                                                     </Tbody>
                                                 </Table>
                                             </AccordionPanel>
                                         </AccordionItem>
                                     </Accordion>
-                                </Tr>
+                                </Tr> */}
                             </>
                         ))}
 

@@ -6,6 +6,7 @@ import About from './pages/About';
 import Dashboard from './pages/Dashboard';
 import SignupForm from './components/SignupForm';
 import LoginForm from './components/LoginForm';
+import TradeOverview from './components/TradeOverview';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route exact path="/" component={Landing} />
         <Route exact path="/about" component={About} />
         <Route exact path="/dashboard" component={Dashboard} />
+        <Route path="/trade/id=:tradeId" component={TradeOverview} />
         <Route exact path="/signup" component={SignupForm} />
         <Route exact path="/login" component={LoginForm} />
       </div>

@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { useSelector } from "react-redux";
+import { useHistory, Redirect } from 'react-router-dom';
 import Calendar from './Calendar';
 import moment from 'moment';
 import {
@@ -37,6 +38,7 @@ export default function NewTrade() {
     const [submitting, setSubmitting] = useState(false);
     const stateUser = useSelector(state => state.user)
     const [date, setDate] = useState(new Date());
+    let history = useHistory();
 
     let tickerRef = useRef(null)
 
@@ -86,6 +88,8 @@ export default function NewTrade() {
             setError(null)
             API.createTrade(tradeObj).then(res => {
                 console.log(res);
+                history.push(`/trade/id=${res.data.trade_id}`, res.data)
+                // <Redirect push to={`/trade/id=${res.data.trade_id}`} prop= {res.data}/>
             })
         }
     }

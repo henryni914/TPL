@@ -15,7 +15,7 @@ import {
 import { CalendarIcon } from "@chakra-ui/icons";
 
 export default function CalendarModal(props) {
-    console.log(props)
+    // console.log(props)
     const { isOpen, onOpen, onClose } = useDisclosure()
     const [value, onChange] = useState(new Date());
 
